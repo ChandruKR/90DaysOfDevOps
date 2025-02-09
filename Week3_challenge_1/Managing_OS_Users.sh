@@ -2,7 +2,7 @@
 #
 #
 #
-# Check if script is run as root
+# Check if user is not root
 if ! [ $(id -u) = 0 ]; then
     echo "You're not root! SWITCH to root to run this script"
 exit 1
@@ -15,14 +15,15 @@ users_creation() {
     read -p "Enter the GECOS of the username": GECOS
     read -s -p "Enter the password for the given username: " password
 echo
-###Validating duplicate username || duplicate UID || invalid User id numbe
+###Validating duplicate username || duplicate UID || invalid User id number ###
 
     existing_user=$(cat /etc/passwd | grep ":$userid:" | cut -d: -f1)
 
-# Validating if the entered username exists
+#Validating if the entered username exists
     if id "$username" &>/dev/null; then
         echo "Error: User  $username already exists!" 
 id $username
+
 #Validating the entered user ID 
     elif [[ "$userid" -lt 1000 ]]; then
         echo "Reserved for system users. User UID should be above 1001."
@@ -31,7 +32,7 @@ id $username
 	echo "UID $userid already exists and is assigned to user: $existing_user"
 	exit
     else
-        sudo useradd -u "$userid" -c "$GECOS" -m  "$username" -s /bin/bash
+         useradd -u "$userid" -c "$GECOS" -m  "$username" -s /bin/bash
         echo "$username:$password" | sudo chpasswd
         echo "User $username created successfully."
     fi
@@ -69,7 +70,7 @@ delete_user() {
     fi
 }
 
-
+#########-----User Password Reset------##########
 reset_password() {
        	read -p "Enter username to reset password: " username
 	if id "$username" &>/dev/null; then
@@ -83,6 +84,8 @@ else
 
 }
 
+#########-----List Users-----##########
+
 list_users() {
 	echo -e "Username\tUID"
 	echo "----------------------"
@@ -90,6 +93,7 @@ list_users() {
 
 }
 
+#########-----Help section-----##########
 help_section() {
     echo "############# Use the below options ###############"
     echo "-c, --create              Create new user account"
