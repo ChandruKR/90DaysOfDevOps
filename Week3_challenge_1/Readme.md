@@ -1,13 +1,15 @@
 # Week 3 Challenge 1: User Account Management
 
 ## Overview
-In this challenge, you will create a shell script to manage user accounts on a Linux system. The script will include functionalities to create, delete, reset passwords, and list user accounts while ensuring proper validation and error handling.
+In this challenge, I've created a shell script to manage user accounts on a Linux system. The script will include functionalities to create, delete, reset passwords, and list user accounts while ensuring proper validation and error handling.
 
 ## Features
 ### 1. Create a User (`-c` or `--create`)
 - Prompts the user to enter a new username and password.
 - Checks if the username already exists before creating the account.
 - Displays a success or error message accordingly.
+- validte if duplicate UIDs are entered
+- Reject if entered UIDs are matching with reservered system level users
 
 ### 2. Delete a User (`-d` or `--delete`)
 - Prompts for the username to delete.
