@@ -56,7 +56,7 @@ UID 1002 already exists and is assigned to user: chandru
 
 ### Valid reserved UID
 ```bash
-root@ip-172-31-19-2:~# /opt/Devops/90DaysOfDevOps/Week3_challenge_1/Managing_OS_Users.sh -c
+root@ip-#-#-#-#:~# /opt/Devops/90DaysOfDevOps/Week3_challenge_1/Managing_OS_Users.sh -c
 Enter the username: test23
 Enter the UID for given username(1000+) :12
 Enter the GECOS of the username:testing
