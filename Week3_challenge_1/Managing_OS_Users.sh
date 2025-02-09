@@ -70,6 +70,38 @@ delete_user() {
 }
 
 
+reset_password() {
+       	read -p "Enter username to reset password: " username
+	if id "$username" &>/dev/null; then
+        read -sp "Enter new password: " password
+        echo
+        echo "$username:$password" | sudo chpasswd
+        echo -e "\e[32muser Password for user $username has been reset.\e[0m"
+else
+	echo "Error: User $username does not exist!"
+    fi
+
+}
+
+list_users() {
+	echo -e "Username\tUID"
+	echo "----------------------"
+	awk -F: '{print $1 "\t" $3}' /etc/passwd
+
+}
+
+help_section() {
+    echo "############# Use the below options ###############"
+    echo "-c, --create              Create new user account"
+    echo "-d, --delete              Delete existing user account"
+    echo "-r, --reset               Reset user password"
+    echo "-l, --list                List all user accounts"
+    echo "-h, --help                Show this help message"
+    echo
+}
+
+
+
 #################  handling Arguments using if statements ###############
 if [[ "$1" == "-c" || "$1" == "--create" ]]; then
     users_creation
