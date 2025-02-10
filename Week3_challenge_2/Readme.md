@@ -30,8 +30,7 @@ Below is the Bash script run test and outputs
 
 
 root@ip-#-#-#-#:/opt/Devops/90DaysOfDevOps/Week3_challenge_2# ./backup_dir.sh /opt/my_shell_scripts/ /opt/backups/
-tar: Removing leading `/' from member names
-root@ip-172-31-19-2:/opt/Devops/90DaysOfDevOps/Week3_challenge_2# ls -ltr /opt/backups/
+root@ip-#-#-#-#:/opt/Devops/90DaysOfDevOps/Week3_challenge_2# ls -ltr /opt/backups/
 total 32
 -rw-r--r-- 1 root root  549 Feb  9 17:23 backup_20250209_172310.tar.gz
 -rw-r--r-- 1 root root  549 Feb  9 17:26 backup_20250209_17_26_04.tar.gz
@@ -52,9 +51,9 @@ total 32
 ```bash
 root@ip-#-#-#-#:/opt/Devops/90DaysOfDevOps/Week3_challenge_2# ./backup_dir.sh /opt/my_shell_scripts/ /opt/backups/
 tar: Removing leading `/' from member names
-root@ip-172-31-19-2:/opt/Devops/90DaysOfDevOps/Week3_challenge_2# cd -
+root@ip-#-#-#-:/opt/Devops/90DaysOfDevOps/Week3_challenge_2# cd -
 /opt/backups
-root@ip-172-31-19-2:/opt/backups# ls -ltr
+root@ip-#-#-#-#:/opt/backups# ls -ltr
 total 20
 -rw-r--r-- 1 root root 2054 Feb  9 17:34 log
 -rw-r--r-- 1 root root   50 Feb  9 17:34 Log_rotate
@@ -67,7 +66,7 @@ As we can see only three tar.gz files left after log rotated.
 
 ### Logging the backup jobs along with timestamp
 ```bash
-root@ip-#-#-#-#2:/opt/Devops/90DaysOfDevOps/Week3_challenge_2# tail -10 /tmp/log
+root@ip-#-#-#-#:/opt/Devops/90DaysOfDevOps/Week3_challenge_2# tail -10 /tmp/log
 user Mon Feb 10 08:21:39 UTC 2025 Backup completed successfully! Backup saved to: /opt/backups//backup_20250210_08_21_39.tar.gz
 user Mon Feb 10 08:21:52 UTC 2025 Backup completed successfully! Backup saved to: /opt/backups//backup_20250210_08_21_52.tar.gz
 user Mon Feb 10 08:21:52 UTC 2025 Backup completed successfully! Backup saved to: /opt/backups//backup_20250210_08_21_52.tar.gz
