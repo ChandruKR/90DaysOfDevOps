@@ -28,6 +28,9 @@ A running instance of a Docker image, providing an isolated environment for the 
 
 # Virtualization vs. Containerization
 ![alt text](Container.PNG)
+
+
+
 Virtualization and containerization are both technologies used to create isolated environments for running applications, but they differ in their architecture, resource usage, and use cases.
 
 ## Virtualization
