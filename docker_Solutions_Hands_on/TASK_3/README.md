@@ -40,10 +40,6 @@ Docker is a powerful platform for developing, shipping, and running applications
   - **Overlay** - Used in Swarm mode.
   - **None** - No networking.  
 
-### 🔹 Swarm  
-- Docker’s native clustering tool for managing multiple Docker hosts.  
-- Allows scaling and orchestration of containerized applications.  
-
 ---
 
 ## ⚙️ 2. Docker Components  
