@@ -30,12 +30,15 @@
         ]
      ```
 
-```bash
-    
-ubuntu@MYLINUXEC2:/opt/docker/weather-app$ docker buntu@MYLINUXEC2:/opt/docker/weather-app$ docker run -d -p 3000:3000 -v weather-data:/sam/data weather-img:single
-c3c4178f5e98b90458dd871b7d93a23f4e4c23711830a521fdd023d9e47f11cb
+
+ 2)  Run a Container with the Volume:
+     * Run a container using the volume to persist data
+  ``` bash 
+    ubuntu@MYLINUXEC2:/opt/docker/weather-app$ docker buntu@MYLINUXEC2:/opt/docker/weather-app$ docker run -d -p 3000:3000 -v weather-data:/sam/data weather-img:single
+    c3c4178f5e98b90458dd871b7d93a23f4e4c23711830a521fdd023d9e47f11cb
 ```
-* Test volume persistence:
+* Test volume persistence: 
+  * Access container via `-it` and store data, stop & delete docker & run again data should still exists under volume
 ```bash
     docker exec -it c3c4178f5e98 bash
     root@c3c4178f5e98:/sam# cd data/
