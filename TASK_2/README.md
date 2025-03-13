@@ -3,6 +3,8 @@
 ## Overview
 This project demonstrates how to configure and use a **Multi-Branch Pipeline** in Jenkins. The setup ensures that different branches are deployed with distinct configurations and triggers automated builds for new branches and pull requests.
 
+## Multi-Branch Pipeline Project Video Clip:
+![Project 2 Pipeline Demo, Download the video clip and watch](https://github.com/ChandruKR/90DaysOfDevOps/blob/Jenkins/Task_1/Project_2_REC.mp4)
 ## Steps Performed
 
 1. **Created a new Multi-Branch Pipeline in Jenkins**.
