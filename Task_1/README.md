@@ -1,9 +1,7 @@
 ## Task 1: Create a Jenkins Pipeline Job for CI/CD
 
 # CI/CD Pipeline Setup with Jenkins
-![Pipeline Demo](https://github.com/ChandruKR/90DaysOfDevOps/blob/Jenkins/Task_1/13.03.2025_05.22.46_REC.mp4)
 
-https://github.com/user-attachments/assets/4e370a2e-b2a8-4836-8e90-b61030de7674
 
 ## Prerequisites
 Ensure the following tools and services are installed and configured:
@@ -20,8 +18,10 @@ Ensure the following tools and services are installed and configured:
 - **Agent Virtual Machine** for deployments
 
 ---
-## Project Video Clip:
+## Project 1 Video Clip:
+![Pipeline Demo](https://github.com/ChandruKR/90DaysOfDevOps/blob/Jenkins/Task_1/13.03.2025_05.22.46_REC.mp4)
 
+https://github.com/user-attachments/assets/4e370a2e-b2a8-4836-8e90-b61030de7674
 
 ## 1. Java-based Web Application Pipeline
 ### Overview
@@ -43,6 +43,9 @@ This pipeline automates the build, test, and deployment of a Java web applicatio
 5. Define the `Jenkinsfile` for pipeline execution.
 
 ---
+
+## Project 2 Video Clip:
+![Pipeline Demo](https://github.com/ChandruKR/90DaysOfDevOps/blob/Jenkins/Task_1/Project_2_REC.mp4)
 
 ## 2. Two-Tier JavaScript Application Pipeline
 ### Overview
