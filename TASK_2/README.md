@@ -6,12 +6,14 @@ This project demonstrates how to configure and use a **Multi-Branch Pipeline** i
 ## Multi-Branch Pipeline Project Video Clip:
 ![Pipeline Demonstration, Download the video clip and watch](https://github.com/ChandruKR/90DaysOfDevOps/blob/Jenkins/TASK_2/Multiproject_setup.mp4)
 
+![Creating & setting up Multi Branch Pipeline](https://github.com/ChandruKR/90DaysOfDevOps/blob/Jenkins/TASK_2/Multiproject_setup.mp4)
+
 ## Steps Performed
 
 1. **Created a new Multi-Branch Pipeline in Jenkins**.
 2. **Configured three main branches**:
    - `Development` (Deployed on **port 3000**)
-   - `Master` (Deployed on **Np PORT**)
+   - `Master` (Deployed on **No PORT**)
    - `Production` (Deployed on **port 5000**)
 3. **Implemented `when` conditions** to ensure stages execute only if the branch name matches the expected branch.
 4. **Configured Jenkins to scan Git repositories for new branches**.
