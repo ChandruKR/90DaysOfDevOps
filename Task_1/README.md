@@ -45,7 +45,7 @@ This pipeline automates the build, test, and deployment of a Java web applicatio
 ---
 
 ## Project 2 Video Clip:
-![Pipeline Demo](https://github.com/ChandruKR/90DaysOfDevOps/blob/Jenkins/Task_1/Project_2_REC.mp4)
+![Project 2 Pipeline Demo, DOwnload the video clip and watch](https://github.com/ChandruKR/90DaysOfDevOps/blob/Jenkins/Task_1/Project_2_REC.mp4)
 
 ## 2. Two-Tier JavaScript Application Pipeline
 ### Overview
