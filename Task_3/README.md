@@ -13,6 +13,12 @@ These agents help distribute workload, improving performance and scalability in 
 
 ---
 
+
+## AGENT setup PIPELINE Video Clip:
+![Pipeline Demonstration, Download the video clip and watch](https://github.com/ChandruKR/90DaysOfDevOps/blob/Jenkins/Task_3/AGENTS_INSTALLATION_PROOFS.mp4)
+
+
+
 ## 1. Configuring Dynamic Docker Agents in Jenkins
 ### Steps Performed:
 1. Installed **Docker Plugin** in Jenkins for seamless Docker integration.
