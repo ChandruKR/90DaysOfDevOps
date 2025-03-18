@@ -15,7 +15,7 @@ These agents help distribute workload, improving performance and scalability in 
 
 
 ## AGENT setup PIPELINE Video Clip:
-![Pipeline Demonstration, Download the video clip and watch](https://github.com/ChandruKR/90DaysOfDevOps/blob/Jenkins/Task_3/AGENTS_INSTALLATION_PROOFS.mp4)
+![AGENTS Demonstration, Download the video clip and watch](https://github.com/ChandruKR/90DaysOfDevOps/blob/Jenkins/Task_3/AGENTS_INSTALLATION_PROOFS.mp4)
 
 
 
