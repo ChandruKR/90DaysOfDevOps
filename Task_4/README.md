@@ -5,7 +5,7 @@ In Jenkins, the **Role-Based Authorization Strategy** plugin allows fine-grained
 ---
 
 ## ROLE BASED Access COntrol DEMO CLIP:
-![ROLE BASED Access COntrol DEMO CLIP](https://github.com/ChandruKR/90DaysOfDevOps/blob/Jenkins/Task_4/ROLE_Based_Access_Control_DEMO.mp4)
+![ROLE BASED Access COntrol DEMO CLIP [Download the video to watch]](https://github.com/ChandruKR/90DaysOfDevOps/blob/Jenkins/Task_4/ROLE_Based_Access_Control_DEMO.mp4)
 
 
 ### 1. **Global Roles**  
