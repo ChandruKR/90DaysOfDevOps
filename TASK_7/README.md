@@ -7,7 +7,9 @@
 This project implements a **Mega Jenkins Pipeline** using a **parameterized CI/CD pipeline** that dynamically selects deployment agents, application types, and versions. The pipeline supports two different environments and applications:
 
 - **Two-Tier Flask-MySQL Application** (Deployed on a Linux VM Agent)
+![ DEMO CLIP [Download the video to watch]](https://github.com/ChandruKR/90DaysOfDevOps/blob/Jenkins/TASK_7/Parameter_based_project_TwotierAPP.mp4)
 - **Java-Maven Web Application** (Built and Deployed in a Docker Container)
+![ DEMO CLIP [Download the video to watch]](https://github.com/ChandruKR/90DaysOfDevOps/blob/Jenkins/TASK_7/Parameter_based_Porject_MVN_DOCKER_AGENT.mp4)
 
 ## Features Implemented
 
