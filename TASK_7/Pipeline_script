@@ -1,1 +1,157 @@
+pipeline {
+    agent none  // No default agent, dynamically selected
+
+    parameters {
+        choice(name: 'TARGET_ENV', choices: ['TEst', 'Docker-Jenkins-Agent'], description: 'Select Target Environment')
+        string(name: 'VERSION_NUMBER', defaultValue: '1.0.0', description: 'Enter the version number')
+        choice(name: 'BUILD_TYPE', choices: ['Maven_Web_App', 'Flask_MySQL_App'], description: 'Select Build Type')
+    }
+
+    stages {
+        stage('Select Agent') {
+            steps {
+                script {
+                    if (params.TARGET_ENV == 'TEst') {
+                        env.SELECTED_AGENT = 'TEst'
+                    } else {
+                        env.SELECTED_AGENT = 'Docker-Jenkins-Agent'
+                    }
+                    echo "Running on Agent: ${env.SELECTED_AGENT}"
+                }
+            }
+        }
+
+        stage('Checkout Code') {
+            agent { label "${env.SELECTED_AGENT}" }
+            steps {
+              script {
+                    // Capture dynamic agent name
+                    env.DYNAMIC_AGENT = env.NODE_NAME
+                    echo "Using Dynamic Agent: ${env.DYNAMIC_AGENT}"
+                    if (params.BUILD_TYPE == 'Maven_Web_App') {
+                        echo "Cloning Maven Web App repository..."
+                        git branch: 'master', url: 'https://github.com/ChandruKR/Java-mvn-app2.git'
+                        sh "ls -la"
+                        sh "hostname"
+                        sh "pwd"
+                         // Stash workspace to transfer to another agent
+                        stash name: 'workspace', includes: '**'
+                    } else if (params.BUILD_TYPE == 'Flask_MySQL_App') {
+                        echo "Cloning Flask-MySQL App repository..."
+                        git branch: 'master', url: 'https://github.com/ChandruKR/two-tier-flask-app.git'
+                    
+                    }
+                    
+                }
+            }
+        }  
+        
+        stage('Trivy file system scan') {
+            agent { label "${env.SELECTED_AGENT}" }
+                steps {
+                    script {
+                        env.DYNAMIC_AGENT = env.NODE_NAME
+                        echo "Using Dynamic Agent: ${env.DYNAMIC_AGENT}"
+                        if (params.BUILD_TYPE == 'Flask_MySQL_App') {
+                            sh "trivy fs . -o results.json"
+                            sh "pwd"
+                            sh "ls -ltr"
+                        } else {
+                            echo "Skipping Trivy scan for ${params.BUILD_TYPE}. Moving to the next stage."
+                        }
+                        
+                    }
+		        }
+        }
+    
+
+        stage('Build Application') {
+            agent { label "${env.SELECTED_AGENT}" }
+            steps {
+                script {
+                 // Restore workspace
+                  
+                    if (params.BUILD_TYPE == 'Maven_Web_App') {
+                        unstash 'workspace'
+                        echo "Building Maven Web Application..."
+                        sh "hostname"
+                        sh "pwd"
+                        sh "ls -ltr"
+                        sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                        stash name: 'build-output', includes: 'target/**'
+                    } else if (params.BUILD_TYPE == 'Flask_MySQL_App') {
+                        echo "Building Flask-MySQL App using Docker Compose..."
+                        sh "docker build -t local_flask-app:latest ."
+                    }
+                    
+                }
+            }
+        }
+        
+        stage('Dockerhub tag & push') {
+            
+            agent { label "${env.SELECTED_AGENT}" }
+            when {
+                expression { params.BUILD_TYPE == 'Flask_MySQL_App' }
+            }
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'Dockerhubid',
+                passwordVariable: 'dockerHubPassword',
+                usernameVariable: 'dockerHubUser')]) {
+                    script {
+                        def dockerImage = "${env.dockerHubUser}/flask-app:latest"
+                        echo "Tagging and pushing Docker image: ${dockerImage}"
+                        
+                        sh "docker image tag local_flask-app:latest ${dockerImage}"
+                        sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                        sh "docker push ${dockerImage}"
+                    }
+                }
+            }
+        }
+        stage('Deploy Application') {
+            agent { label "${env.SELECTED_AGENT}" }
+            steps {
+               
+                script {
+                    env.DYNAMIC_AGENT = env.NODE_NAME
+                   
+                    if (params.BUILD_TYPE == 'Maven_Web_App') {
+                         unstash 'build-output'
+                        echo "Deploying Maven Web Application..."
+                        sh "pwd"
+                        sh "ls -ltr /home/jenkins/workspace/Dynamic_Build_Pipeline/target"
+                        sh "cp -r target/mvn-hello-chandru.war /opt/tomcat/webapps"
+                        sh "/opt/tomcat/bin/startup.sh &"
+                        sh "ps -ef | grep -i tomcat"
+                        sh "sleep 50"
+                        
+                    } else if (params.BUILD_TYPE == 'Flask_MySQL_App') {
+                        echo "Deploying Flask-MySQL App..."
+                        sh 'docker-compose down && docker-compose up -d'
+                    }
+                }
+            }
+        }
+        
+        
+        
+    }
+    
+    post {
+    success {
+        emailext body: "The build has completed successfully. Check details at: ${env.BUILD_URL}", attachLog: true,
+            subject: "Build Notification: ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
+            to: "ckfordevops0114@gmail.com"
+
+    }
+    failure {
+        emailext body: "Build Failed. Check details at: ${env.BUILD_URL} WORKSPACE: ${WORKSPACE}", attachLog: true,
+        from: "noreplychandru@gmail.com",
+        subject: "Build Notification: ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
+        recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+        to: "ckfordevops0114@gmail.com"
+    }
+}
+}
 
