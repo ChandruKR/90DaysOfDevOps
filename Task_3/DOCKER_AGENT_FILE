@@ -1,0 +1,45 @@
+FROM ubuntu:22.04
+
+# Make sure the package repository is up to date and install required packages
+RUN apt-get update && \
+    apt-get install -qy git openssh-server openjdk-17-jdk maven wget unzip && \
+    sed -i 's|session    required     pam_loginuid.so|session    optional     pam_loginuid.so|g' /etc/pam.d/sshd && \
+    mkdir -p /var/run/sshd && \
+    apt-get -qy autoremove
+
+# Set Java 17 as default
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+ENV PATH=$JAVA_HOME/bin:$PATH
+
+# Add user jenkins to the image with home directory and shell
+RUN useradd -m -s /bin/bash jenkins && \
+    echo "jenkins:password" | chpasswd
+
+# Ensure the .m2 directory and SSH keys exist
+RUN mkdir -p /home/jenkins/.m2 /home/jenkins/.ssh && \
+    chown -R jenkins:jenkins /home/jenkins/.m2 /home/jenkins/.ssh
+
+# Copy authorized keys for SSH access
+COPY .ssh/authorized_keys /home/jenkins/.ssh/authorized_keys
+
+# Install Apache Tomcat 9
+ENV TOMCAT_VERSION=9.0.100
+ENV CATALINA_HOME=/opt/tomcat
+ENV PATH=$CATALINA_HOME/bin:$PATH
+
+RUN wget -q https://downloads.apache.org/tomcat/tomcat-9/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tar.gz && \
+    mkdir -p ${CATALINA_HOME} && \
+    tar xzf /tmp/tomcat.tar.gz -C ${CATALINA_HOME} --strip-components=1 && \
+    rm /tmp/tomcat.tar.gz
+
+# Create Tomcat user and set permissions
+RUN useradd -m -U -d ${CATALINA_HOME} -s /bin/false tomcat && \
+    chown -R tomcat:tomcat ${CATALINA_HOME} && \
+    usermod -aG tomcat jenkins && \
+    chmod -R g+rwx /opt/tomcat
+
+# Expose ports (SSH: 22, Tomcat: 8080)
+EXPOSE 22 8080
+
+# Start SSH and Tomcat
+CMD ["/usr/sbin/sshd", "-D", "&", "/opt/tomcat/bin/startup.sh", "run"]
